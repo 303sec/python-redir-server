@@ -5,7 +5,7 @@
 #!/usr/bin/env python3
 '''
 Usage::
-    ./redir.py [<port>] [<redirect-host>]
+    ./redir.py [<port>] [<redirect-host>] [<return-code>]
 '''
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
@@ -15,12 +15,17 @@ import sys
 
 class S(BaseHTTPRequestHandler):
     def _set_response_redir(self):
+        if len(sys.argv) > 3:
+            if sys.argv[3]:
+                response_code = int(sys.argv[3])
+        else:
+            response_code = 302
         if len(sys.argv) > 2:
             if sys.argv[2]:
                 redir_location = sys.argv[2]
         else:
             redir_location = 'http://localhost'
-        self.send_response(302)
+        self.send_response(response_code)
         self.send_header('Location', redir_location)
         self.end_headers()
 
