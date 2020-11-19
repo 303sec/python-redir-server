@@ -33,7 +33,9 @@ class S(BaseHTTPRequestHandler):
         logging.info("GET request,\nPath: %s\nHeaders:\n%s\n", str(self.path), str(self.headers))
         headers = str(self.headers)
         self._set_response_redir()
-        self.wfile.write("GET request for {}".format(self.path).encode('utf-8'))
+        
+        self.wfile.write("GET request for {}. \"'><script>alert(document.domain)</script>".format(self.path).encode('utf-8'))
+        
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length']) # <--- Gets the size of data
@@ -42,7 +44,7 @@ class S(BaseHTTPRequestHandler):
                 str(self.path), str(self.headers), post_data.decode('utf-8'))
 
         self._set_response_redir()
-        self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+        self.wfile.write("POST request for {} \"'><script>alert(document.domain)</script>".format(self.path).encode('utf-8'))
 
 def run(server_class=HTTPServer, handler_class=S, port=8080):
     logging.basicConfig(level=logging.INFO)
