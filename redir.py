@@ -29,7 +29,7 @@ class S(BaseHTTPRequestHandler):
         self.send_header("Host","{}:80@%h".format(redir_location))
         self.send_header("Contact","root@{}".format(redir_location))
         self.send_header("From","root@{}".format(redir_location))
-        self.send_header("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/55.0.2883.87 Safari/537.36 root@{}".format(redir_location))
+        #self.send_header("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML like Gecko) Chrome/55.0.2883.87 Safari/537.36 root@{}".format(redir_location))
         self.send_header("Referer","http://{}/ref".format(redir_location))
         self.send_header("X-Original-URL","http://{}/".format(redir_location))
         self.send_header("X-Wap-Profile","http://{}/wap.xml".format(redir_location))
@@ -52,7 +52,7 @@ class S(BaseHTTPRequestHandler):
         self.send_header("X-Real-IP","spoofed.{}".format(redir_location))
         self.send_header("X-Originating-IP","spoofed.{}".format(redir_location))
         self.send_header("CF-Connecting_IP","spoofed.{}".format(redir_location))
-        self.send_header('Location', redir_location)
+        self.send_header('Location', 'http://{}'.format(redir_location))
         self.end_headers()
 
     def do_GET(self):
